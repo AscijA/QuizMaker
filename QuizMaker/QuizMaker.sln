@@ -5,6 +5,20 @@ VisualStudioVersion = 17.14.36915.13 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.Api", "QuizMaker.Api\QuizMaker.Api.csproj", "{FC91617A-80AD-4263-A493-DC1AC6D29BB3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{736DE831-76D4-4EB4-B602-99F134EEA565}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.Domain", "QuizMaker.Domain\QuizMaker.Domain.csproj", "{1D6D168E-9B76-43DF-80F4-7891351A3B33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.Infrastructure", "QuizMaker.Infrastructure\QuizMaker.Infrastructure.csproj", "{FFDE2A33-C3B5-4FD8-9EFD-63FDE2A10BAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.Application", "QuizMaker.Application\QuizMaker.Application.csproj", "{854258D5-AC85-4E7B-800E-98D45A925A0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.UnitTests", "QuizMaker.UnitTests\QuizMaker.UnitTests.csproj", "{8E054209-FA17-427B-9BA0-9BCF8319497F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.IntegrationTests", "QuizMaker.IntegrationTests\QuizMaker.IntegrationTests.csproj", "{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +29,37 @@ Global
 		{FC91617A-80AD-4263-A493-DC1AC6D29BB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC91617A-80AD-4263-A493-DC1AC6D29BB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC91617A-80AD-4263-A493-DC1AC6D29BB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D6D168E-9B76-43DF-80F4-7891351A3B33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D6D168E-9B76-43DF-80F4-7891351A3B33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D6D168E-9B76-43DF-80F4-7891351A3B33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D6D168E-9B76-43DF-80F4-7891351A3B33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDE2A33-C3B5-4FD8-9EFD-63FDE2A10BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFDE2A33-C3B5-4FD8-9EFD-63FDE2A10BAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDE2A33-C3B5-4FD8-9EFD-63FDE2A10BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFDE2A33-C3B5-4FD8-9EFD-63FDE2A10BAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{854258D5-AC85-4E7B-800E-98D45A925A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{854258D5-AC85-4E7B-800E-98D45A925A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{854258D5-AC85-4E7B-800E-98D45A925A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{854258D5-AC85-4E7B-800E-98D45A925A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E054209-FA17-427B-9BA0-9BCF8319497F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E054209-FA17-427B-9BA0-9BCF8319497F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E054209-FA17-427B-9BA0-9BCF8319497F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E054209-FA17-427B-9BA0-9BCF8319497F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FC91617A-80AD-4263-A493-DC1AC6D29BB3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1D6D168E-9B76-43DF-80F4-7891351A3B33} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{FFDE2A33-C3B5-4FD8-9EFD-63FDE2A10BAE} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{854258D5-AC85-4E7B-800E-98D45A925A0A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{8E054209-FA17-427B-9BA0-9BCF8319497F} = {736DE831-76D4-4EB4-B602-99F134EEA565}
+		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682} = {736DE831-76D4-4EB4-B602-99F134EEA565}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3371470-7344-43E5-9054-2432F1A81C2F}
