@@ -7,14 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Exporters\" />
-    <Folder Include="Services\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.12" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\QuizMaker.Domain\QuizMaker.Domain.csproj" />
   </ItemGroup>
 
 </Project>
