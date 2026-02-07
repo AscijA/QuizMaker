@@ -1,46 +1,70 @@
 using Microsoft.AspNetCore.Authentication.Negotiate;
+using QuizMaker.Application;
+using QuizMaker.Infrastructure;
+using Serilog;
 
-namespace QuizMaker.Api
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+namespace QuizMaker.Api {
+    public class Program {
+        public static void Main(string[] args) {
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .CreateBootstrapLogger();
 
-            // Add services to the container.
+            try {
+                var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+                builder.Host.UseSerilog((context, services, loggerConfig) => loggerConfig
+                    .ReadFrom.Configuration(context.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext()
+                );
 
-            builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-                .AddNegotiate();
+                builder.Services.AddControllers();
+                builder.Services.AddEndpointsApiExplorer();
+                builder.Services.AddSwaggerGen();
 
-            builder.Services.AddAuthorization(options =>
-            {
-                // By default, all incoming requests will be authorized according to the default policy.
-                options.FallbackPolicy = options.DefaultPolicy;
-            });
+                builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+                    .AddNegotiate();
 
-            var app = builder.Build();
+                builder.Services.AddApplication();
+                builder.Services.AddInfrastructure(builder.Configuration);
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                //builder.Services.AddAuthorization(options => {
+                //    options.FallbackPolicy = options.DefaultPolicy;
+                //});
+
+                var app = builder.Build();
+
+                app.UseSerilogRequestLogging(options => {
+                    options.EnrichDiagnosticContext = (diag, http) => {
+                        diag.Set("TraceId", http.TraceIdentifier);
+                        diag.Set("RemoteIP", http.Connection.RemoteIpAddress?.ToString());
+                        diag.Set("User", http.User?.Identity?.Name);
+                    };
+
+                    //options.GetLevel = (http, elapsed, ex) =>
+                    //    http.Request.Path.StartsWithSegments("/health") ? LogEventLevel.Verbose : LogEventLevel.Information;
+                });
+
+                if (app.Environment.IsDevelopment()) {
+                    app.UseSwagger();
+                    app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
+                }
+
+                app.UseHttpsRedirection();
+
+                app.UseAuthentication();
+                //app.UseAuthorization();
+
+                app.MapControllers();
+                app.Run();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+            catch (Exception ex) {
+                Log.Fatal(ex, "Application terminated unexpectedly");
+            }
+            finally {
+                Log.CloseAndFlush();
+            }
         }
     }
 }

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuizMaker.Domain.Common;
+namespace QuizMaker.Application.Common.Results;
 
 /// <summary>
 /// Represents a paginated result set using cursor-based pagination.
 /// </summary>
 /// <typeparam name="T">The type of items contained in the result set.</typeparam>
-internal class CursorResult<T> {
+public class CursorResult<T> {
 
     public IEnumerable<T> Items { get; set; } = null!;
     public bool HasNextPage { get; set; }

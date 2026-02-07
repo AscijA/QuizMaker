@@ -4,6 +4,5 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuizMaker.Domain.Interfaces;
-internal interface IQuizExporter {
-}
+namespace QuizMaker.Application.Contracts.DTOs.Question;
+public record QuestionDetailDto ();

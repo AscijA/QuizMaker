@@ -5,5 +5,5 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace QuizMaker.Application.Interfaces;
-internal interface IExporterService {
+internal interface IQuizExporter {
 }

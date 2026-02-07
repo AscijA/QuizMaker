@@ -1,4 +1,6 @@
 ﻿
+using QuizMaker.Domain.Exceptions.Quiz;
+
 namespace QuizMaker.Domain.Entities;
 /// <summary>
 /// Represents a Quiz 
@@ -6,12 +8,17 @@ namespace QuizMaker.Domain.Entities;
 /// </summary>
 public class Quiz {
     public Guid Id { get; private set; }
-    public string Name { get; set; } = string.Empty;
+    public string Name { get; private set; }
     public ICollection<QuizQuestion> QuizQuestions { get; set; } = new List<QuizQuestion>();
-    public bool IsDeleted { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsDeleted { get; private set; }
+    public DateTime CreatedAt { get; private set; }
 
-    public Quiz() {
+    public Quiz(string name) {
+
+        if (string.IsNullOrWhiteSpace(name))
+            throw new QuizValidationException("Quiz Name is required.");
+
+        Name = name;
         Id = Guid.NewGuid();
         CreatedAt = DateTime.UtcNow;
     }
