@@ -12,6 +12,7 @@ public interface IQuizService {
     /// </summary>
     /// <param name="cursor">CreatedAt UTC DateTime-String of the last item in the previous page. Pass <c>null</c> for the first page.</param>
     /// <param name="pageSize">Number of items to return</param>
+    /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A cursor result containing the <c>QuizListDto</c> entities and the next cursor.</returns>
     Task<CursorResult<QuizListDto>> GetAllAsync(string? cursor, int? pageSize, CancellationToken cancellationToken);
 
@@ -19,28 +20,40 @@ public interface IQuizService {
     /// Asynchronously retrieves a <c>Quiz</c> entity as <c>QuizDetailDto</c> by its unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the <c>Quiz</c> entity to retrieve.</param>
+    /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the <c>QuizDetailDto</c> if found; otherwise, null.</returns>
-    Task<QuizDetailDto> GetById(Guid id, CancellationToken cancellationToken);
+    Task<QuizDetailDto> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Asynchronously adds a <c>Quiz</c> entity to the data store.
     /// </summary>
     /// <param name="quizCreateDto">The <c>QuizCreateDto</c> used to add the <c>Quiz</c> entity.</param>
+    /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the <c>ID</c> of the created <c>Quiz</c></returns>
-    Task<Guid> AddAsync(QuizCreateDto quizCreateDto, CancellationToken cancellationToken);
+    Task<QuizDetailDto> AddAsync(QuizCreateDto quizCreateDto, CancellationToken cancellationToken);
 
     /// <summary>
     /// Asynchronously updates the specified <c>Quiz</c>.
     /// </summary>
-    /// <param name="quizDetailDto">The <c>QuizCreateDto</c> used to update the <c>Quiz</c> entity.</param>
+    /// <param name="quizUpdateDto">The <c>QuizUpdateDto</c> used to update the <c>Quiz</c> entity.</param>
     /// <returns></returns>
-    Task UpdateAsync(QuizDetailDto quizDetailDto, CancellationToken cancellationToken);
+    Task<QuizDetailDto> UpdateAsync(QuizUpdateDto quizDetailDto, CancellationToken cancellationToken);
+
+
+    /// <summary>
+    /// Updates specified fields of a quiz asynchronously.
+    /// </summary>
+    /// <param name="quizDetailDto">The <c>QuizUpdateDto</c> containing fields to update.</param>
+    /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing the updated quiz details.</returns>
+    Task<QuizDetailDto> UpdatePartialAsync(QuizUpdateDto quizDetailDto, CancellationToken cancellationToken);
 
 
     /// <summary>
     /// Asynchronously deletes the <c>Quiz</c> entity with the specified unique identifier.
     /// </summary>
     /// <param name="id">The unique identifier of the <c>Quiz</c> entity to delete.</param>
+    /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous delete operation.</returns>
     Task DeleteAsync(Guid id, CancellationToken cancellationToken);
 
