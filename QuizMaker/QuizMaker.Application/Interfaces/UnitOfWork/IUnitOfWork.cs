@@ -1,5 +1,5 @@
 ﻿namespace QuizMaker.Application.Interfaces.UnitOfWork;
-public interface IUnitOfWork {
+public interface IUnitOfWork : IDisposable {
 
     Task SaveChangesAsync(CancellationToken cancellationToken = default);
 }

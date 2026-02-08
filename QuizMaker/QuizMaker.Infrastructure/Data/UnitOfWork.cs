@@ -10,10 +10,19 @@ namespace QuizMaker.Infrastructure.Data;
 public class UnitOfWork : IUnitOfWork {
     private readonly ILogger<UnitOfWork> _logger;
 
-    public UnitOfWork(ILogger<UnitOfWork> logger) {
+    private readonly QuizDbContext _context;
+
+    public UnitOfWork(QuizDbContext context, ILogger<UnitOfWork> logger) {
+        _context = context;
         _logger = logger;
     }
-    public Task SaveChangesAsync(CancellationToken cancellationToken = default) {
-        throw new NotImplementedException();
+
+    public async Task SaveChangesAsync(CancellationToken cancellationToken) {
+        var numberOfChanges = await _context.SaveChangesAsync(cancellationToken);
+        _logger.LogInformation("UnitOfWork commited {Count} of  changes", numberOfChanges);
+    }
+
+    public void Dispose() {
+        _context.Dispose();
     }
 }
