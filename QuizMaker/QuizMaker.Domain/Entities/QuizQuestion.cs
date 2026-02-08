@@ -6,10 +6,10 @@
 /// </summary>
 public class QuizQuestion {
 
-    public Guid QuizId { get; init; }
+    public Guid QuizId { get; private set; }
     public Quiz Quiz { get; set; } = null!;
 
-    public Guid QuestionId { get; init; }
+    public Guid QuestionId { get; private set; }
     public Question Question { get; set; } = null!;
 
     public int OrderIndex { get; set; }

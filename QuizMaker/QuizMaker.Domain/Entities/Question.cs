@@ -6,11 +6,12 @@ namespace QuizMaker.Domain.Entities;
 /// </summary>
 public class Question {
     public Guid Id { get; private set; }
-    public string Text { get; set; }
-    public string Answer { get; set; }
+    public string Text { get; set; } = null!;
+    public string Answer { get; set; } = null!;
 
     public ICollection<QuizQuestion> QuizQuestions { get; set; } = new List<QuizQuestion>();
 
+    public Question() { }
     public Question(string text, string answer) {
 
         if (string.IsNullOrWhiteSpace(text)) {

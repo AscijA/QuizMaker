@@ -8,11 +8,12 @@ namespace QuizMaker.Domain.Entities;
 /// </summary>
 public class Quiz {
     public Guid Id { get; private set; }
-    public string Name { get; private set; }
+    public string Name { get; private set; } = null!;
     public ICollection<QuizQuestion> QuizQuestions { get; set; } = new List<QuizQuestion>();
     //public bool IsDeleted { get; private set; } // soft delete
     public DateTime CreatedAt { get; private set; }
 
+    public Quiz() { }
     public Quiz(string name) {
 
         if (string.IsNullOrWhiteSpace(name))
