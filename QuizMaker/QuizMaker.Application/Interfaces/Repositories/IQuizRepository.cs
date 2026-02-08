@@ -49,5 +49,5 @@ public interface IQuizRepository {
     /// <param name="id">The unique identifier of the <c>Quiz</c> entity to delete.</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous delete operation.</returns>
-    void DeleteAsync(Quiz quiz);
+    void Delete(Quiz quiz);
 }
