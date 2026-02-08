@@ -19,16 +19,18 @@ public class QuizDbContext : DbContext {
         modelBuilder.Entity<QuizQuestion>()
             .HasOne(qq => qq.Quiz)
             .WithMany(q => q.QuizQuestions)
-            .HasForeignKey(qq => qq.QuizId);
+            .HasForeignKey(qq => qq.QuizId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<QuizQuestion>()
             .HasOne(qq => qq.Question)
             .WithMany(q => q.QuizQuestions)
-            .HasForeignKey(qq => qq.QuestionId);
+            .HasForeignKey(qq => qq.QuestionId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // dont query IsDeleted == false
-        modelBuilder.Entity<Quiz>()
-            .HasQueryFilter(q => !q.IsDeleted);
+        //modelBuilder.Entity<Quiz>()
+        //    .HasQueryFilter(q => !q.IsDeleted);
 
         //restrictiosn
         modelBuilder.Entity<Quiz>()
