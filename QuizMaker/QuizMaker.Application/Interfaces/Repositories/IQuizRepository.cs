@@ -33,7 +33,7 @@ public interface IQuizRepository {
     /// <param name="quiz">The <c>Quiz</c> entity to add.</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous add operation.</returns>
-    Task AddAsync(Quiz quiz, CancellationToken cancellationToken);
+    Task<Quiz> AddAsync(Quiz quiz, CancellationToken cancellationToken);
 
     /// <summary>
     /// Asynchronously updates the specified <c>Quiz</c>.
@@ -41,7 +41,7 @@ public interface IQuizRepository {
     /// <param name="quiz">The Quiz entity to update.</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous update operation.</returns>
-    Task UpdateAsync(Quiz quiz, CancellationToken cancellationToken);
+    Task<Quiz?> GetFullByIdAsync(Guid id, CancellationToken cancellationToken, bool shouldTrack);
 
     /// <summary>
     /// Asynchronously deletes the <c>Quiz</c> entity with the specified unique identifier.
@@ -49,5 +49,5 @@ public interface IQuizRepository {
     /// <param name="id">The unique identifier of the <c>Quiz</c> entity to delete.</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task that represents the asynchronous delete operation.</returns>
-    Task DeleteAsync(Guid id, CancellationToken cancellationToken);
+    void DeleteAsync(Quiz quiz);
 }
