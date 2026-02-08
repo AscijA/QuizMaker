@@ -19,7 +19,7 @@ public class UnitOfWork : IUnitOfWork {
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken) {
         var numberOfChanges = await _context.SaveChangesAsync(cancellationToken);
-        _logger.LogInformation("UnitOfWork commited {Count} of  changes", numberOfChanges);
+        _logger.LogDebug("UnitOfWork commited {Count} of  changes", numberOfChanges);
     }
 
     public void Dispose() {
