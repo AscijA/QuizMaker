@@ -5,7 +5,7 @@ using QuizMaker.Domain.Exceptions;
 
 namespace QuizMaker.Api.Middleware.Filters;
 
-public class ApiExceptionFilter {
+public class ApiExceptionFilter : IExceptionFilter {
 
     public void OnException(ExceptionContext exceptionContext) {
 
