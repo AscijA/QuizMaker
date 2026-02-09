@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using QuizMaker.Application.Common.Results;
 using QuizMaker.Application.Interfaces.Repositories;
 using QuizMaker.Domain.Entities;
@@ -6,17 +7,48 @@ using QuizMaker.Domain.Entities;
 namespace QuizMaker.Infrastructure.Data.Repositories;
 public class QuestionRepository : IQuestionRepository {
 
-    private readonly ILogger<QuestionRepository> _logger;
-
-    public QuestionRepository(ILogger<QuestionRepository> logger) {
-        _logger = logger;
+    private readonly QuizDbContext _context;
+    public QuestionRepository(QuizDbContext context) {
+        _context = context;
     }
 
     public async Task<IEnumerable<Question>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken) {
-        throw new NotImplementedException();
+
+        return await _context.Questions
+            .AsNoTracking()
+            .Where(q => ids.Contains(q.Id))
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<CursorResult<Question>> SearchAsync(string? searchText, string? cursor, int pageSize, CancellationToken cancellationToken) {
-        throw new NotImplementedException();
+    public async Task<CursorResult<Question>> SearchAsync(string? searchText, Guid? cursor, int pageSize, CancellationToken cancellationToken) {
+        var query = _context.Questions.AsNoTracking();
+
+        if (!string.IsNullOrWhiteSpace(searchText)) {
+            query = query.Where(q => EF.Functions.ILike(q.Text, $"%{searchText}") ||
+                EF.Functions.ILike(q.Answer, $"%{searchText}"));
+        }
+        if (cursor.HasValue) {
+            query = query.Where(q => q.Id > cursor);
+        }
+
+        var items = await query
+            .OrderBy(q => q.Id)
+            .Take(pageSize + 1)
+            .ToListAsync(cancellationToken);
+
+        var result = new CursorResult<Question>();
+
+        if (items.Count > pageSize) {
+            result.HasNextPage = true;
+            items.RemoveAt(items.Count - 1);
+        }
+
+        result.Items = items;
+
+        if (items.Count > 0) {
+            result.NextCursor = items.Last().Id.ToString();
+        }
+
+        return result;
     }
 }
