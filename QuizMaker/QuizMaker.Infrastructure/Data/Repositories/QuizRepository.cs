@@ -28,11 +28,11 @@ public class QuizRepository : IQuizRepository {
 
 
         if (cursor.HasValue) {
-            query = query.Where(a => a.CreatedAt > cursor.Value);
+            query = query.Where(a => a.CreatedAt < cursor.Value);
         }
 
         var items = await query
-            .OrderBy(q => q.CreatedAt)
+            .OrderByDescending(q => q.CreatedAt)
             .ThenBy(q => q.Id)
             .Take(pageSize + 1)
             .ToListAsync(cancellationToken);
