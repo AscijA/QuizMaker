@@ -1,3 +1,3 @@
 ﻿namespace QuizMaker.Application.Contracts.DTOs.Quiz;
 
-public record QuizListDto();
+public record QuizListDto(Guid Id, string Name, int Count);
