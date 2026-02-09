@@ -9,11 +9,11 @@ namespace QuizMaker.Domain.Entities;
 public class Quiz {
     public Guid Id { get; private set; }
     public string Name { get; private set; } = null!;
-    public ICollection<QuizQuestion> QuizQuestions { get; set; } = new List<QuizQuestion>();
+    public ICollection<QuizQuestion> QuizQuestions { get; private set; } = new List<QuizQuestion>();
     //public bool IsDeleted { get; private set; } // soft delete
     public DateTime CreatedAt { get; private set; }
 
-    public Quiz() { }
+    private Quiz() { }
     public Quiz(string name) {
 
         if (string.IsNullOrWhiteSpace(name))

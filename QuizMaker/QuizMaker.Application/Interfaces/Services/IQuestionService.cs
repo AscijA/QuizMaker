@@ -16,7 +16,7 @@ public interface IQuestionService {
     /// <param name="pageSize">Number of items to return</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A cursor result containing the <c>QuestionDetailDto</c> entites and the next cursor.</returns>
-    Task<CursorResult<QuestionDetailDto>> SearchAsync(string? searchText, string? cursor, int? pageSize, CancellationToken cancellationToken);
+    Task<CursorResult<QuestionDetailDto>> SearchAsync(string? searchText, string? cursor, int pageSize, CancellationToken cancellationToken);
 
     /// <summary>
     /// Asynchronously retrieves a collection of <c>QuestionDetailDto</c> entites matching the specified IDs.

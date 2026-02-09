@@ -14,7 +14,7 @@ public interface IQuizService {
     /// <param name="pageSize">Number of items to return</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A cursor result containing the <c>QuizListDto</c> entities and the next cursor.</returns>
-    Task<CursorResult<QuizListDto>> GetAllAsync(string? cursor, int? pageSize, CancellationToken cancellationToken);
+    Task<CursorResult<QuizListDto>> GetAllAsync(string? cursor, int pageSize, CancellationToken cancellationToken);
 
     /// <summary>
     /// Asynchronously retrieves a <c>Quiz</c> entity as <c>QuizDetailDto</c> by its unique identifier.

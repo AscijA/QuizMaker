@@ -17,7 +17,7 @@ public class QuizRepository : IQuizRepository {
         return entity.Entity;
     }
 
-    public void DeleteAsync(Quiz quiz) {
+    public void Delete(Quiz quiz) {
         _context.Quizzes.Remove(quiz);
     }
 
