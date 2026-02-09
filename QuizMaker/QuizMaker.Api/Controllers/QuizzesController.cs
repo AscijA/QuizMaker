@@ -27,26 +27,35 @@ public class QuizzesController : ControllerBase {
 
     // GET api/<QuizzesController>/5
     [HttpGet("{id}")]
-    public string Get(int id) {
-        return "value";
+    public async Task<QuizDetailDto> GetByIdAsync(Guid id, CancellationToken cancellationToken) {
+        return await _quizService.GetByIdAsync(id, cancellationToken);
     }
 
     // POST api/<QuizzesController>
     [HttpPost]
-    public void Post([FromBody] string value) {
+    public async Task<QuizDetailDto> AddAsync([FromBody] QuizCreateDto dto, CancellationToken cancellationToken) {
+        return await _quizService.AddAsync(dto, cancellationToken);
     }
 
     // PUT api/<QuizzesController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value) {
+    [HttpPut]
+    public async Task<QuizDetailDto> Update([FromBody] QuizUpdateDto dto, CancellationToken cancellationToken) {
+        return await _quizService.UpdateAsync(dto, cancellationToken);
+    }
+
+    [HttpPatch]
+    public async Task<QuizDetailDto> UpdatePartial([FromBody] QuizUpdateDto dto, CancellationToken cancellationToken) {
+        return await _quizService.UpdatePartialAsync(dto, cancellationToken);
     }
 
     // DELETE api/<QuizzesController>/5
     [HttpDelete("{id}")]
-    public void Delete(int id) {
+    public async void Delete(Guid id, CancellationToken cancellationToken) {
+        await _quizService.DeleteAsync(id, cancellationToken);
     }
 
     [HttpGet]
+    [Route("/export")]
     public async Task<byte[]> Export(Guid id) {
         return null;
     }
