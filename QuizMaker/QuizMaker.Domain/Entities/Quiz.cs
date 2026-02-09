@@ -23,4 +23,13 @@ public class Quiz {
         Id = Guid.NewGuid();
         CreatedAt = DateTime.UtcNow;
     }
+
+    public void UpdateName(string name) {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new QuizValidationException("Quiz Name is required.");
+
+        Name = name;
+    }
+
+
 }
