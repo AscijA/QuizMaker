@@ -49,9 +49,13 @@ public class QuizDbContext : DbContext {
             .IsRequired()
             .HasMaxLength(500);
 
-        // indexes
-        modelBuilder.Entity<Question>()
-            .HasIndex(q => q.Text); 
+        //// indexes
+        //modelBuilder.Entity<Question>()
+        //    .HasIndex(q => q.Text);
+
+
+        //modelBuilder.Entity<Question>()
+        //    .HasIndex(q => q.Answer);
 
     }
 }
