@@ -60,9 +60,9 @@ public class QuizService : IQuizService {
         DateTime? cursorDT = DateTime.TryParse(cursor, out var dt) ? dt : (DateTime?)null;
         var quizzes = await _quizRepository.GetAllAsync(cursorDT, pageSize, cancellationToken);
 
-        if (quizzes.Items.Any()) {
+        if (!quizzes.Items.Any()) {
             _logger.LogWarning("No Quizzes found");
-            return new CursorResult<QuizListDto>();
+            return new CursorResult<QuizListDto>() { Items = [] };
         }
 
         var items = quizzes.Items
@@ -102,7 +102,7 @@ public class QuizService : IQuizService {
 
         quiz.UpdateName(quizUpdateDto.Name);
 
-        quiz.QuizQuestions.Clear();
+        quiz.ClearQuestions();
 
         await BindQuestionsToQuizAsync(quiz, quizUpdateDto.Questions, cancellationToken);
 
@@ -129,7 +129,7 @@ public class QuizService : IQuizService {
         }
 
         if (quizUpdateDto.Questions != null) {
-            quiz.QuizQuestions.Clear();
+            quiz.ClearQuestions();
 
             await BindQuestionsToQuizAsync(quiz, quizUpdateDto.Questions, cancellationToken);
         }
@@ -183,11 +183,7 @@ public class QuizService : IQuizService {
                 questionEntity = new Question(qDto.Text, qDto.Answer);
             }
 
-            quiz.QuizQuestions.Add(new QuizQuestion {
-                Quiz = quiz,
-                Question = questionEntity,
-                OrderIndex = orderIndex++
-            });
+            quiz.AddQuestion(questionEntity, orderIndex++);
         }
     }
 }
