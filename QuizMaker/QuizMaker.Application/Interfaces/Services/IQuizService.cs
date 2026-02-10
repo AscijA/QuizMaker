@@ -29,14 +29,14 @@ public interface IQuizService {
     /// </summary>
     /// <param name="quizCreateDto">The <c>QuizCreateDto</c> used to add the <c>Quiz</c> entity.</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the <c>ID</c> of the created <c>Quiz</c></returns>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the <c>QuizDetailDto</c> of the created <c>Quiz</c></returns>
     Task<QuizDetailDto> AddAsync(QuizCreateDto quizCreateDto, CancellationToken cancellationToken);
 
     /// <summary>
     /// Asynchronously updates the specified <c>Quiz</c>.
     /// </summary>
     /// <param name="quizUpdateDto">The <c>QuizUpdateDto</c> used to update the <c>Quiz</c> entity.</param>
-    /// <returns></returns>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the <c>QuizDetailDto</c> of the updated <c>Quiz</c></returns>
     Task<QuizDetailDto> UpdateAsync(QuizUpdateDto quizDetailDto, CancellationToken cancellationToken);
 
 
@@ -45,7 +45,7 @@ public interface IQuizService {
     /// </summary>
     /// <param name="quizDetailDto">The <c>QuizUpdateDto</c> containing fields to update.</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
-    /// <returns>A task that represents the asynchronous operation, containing the updated quiz details.</returns>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the <c>QuizDetailDto</c> of the updated <c>Quiz</c></returns>
     Task<QuizDetailDto> UpdatePartialAsync(QuizUpdateDto quizDetailDto, CancellationToken cancellationToken);
 
 
