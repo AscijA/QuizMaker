@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using QuizMaker.Application.Common.Results;
 using QuizMaker.Application.Contracts.DTOs.Question;
-using QuizMaker.Application.Exceptions;
 using QuizMaker.Application.Interfaces.Repositories;
 using QuizMaker.Application.Interfaces.Services;
 using QuizMaker.Application.Mappings;
@@ -46,7 +45,7 @@ public class QuestionService : IQuestionService {
 
         if (!questions.Items.Any()) {
             _logger.LogWarning("No Questions found");
-            return new CursorResult<QuestionDetailDto>();
+            return new CursorResult<QuestionDetailDto>() { Items = [] };
         }
 
         var items = questions.Items
