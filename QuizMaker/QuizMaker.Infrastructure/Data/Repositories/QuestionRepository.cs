@@ -30,10 +30,10 @@ public class QuestionRepository : IQuestionRepository {
         if (cursor.HasValue) {
             query = query.Where(a => a.CreatedAt < cursor.Value);
         }
-        
+
         var items = await query
-            .OrderBy(q => q.Id)
-            .Take(pageSize + 1)
+            .OrderByDescending(q => q.CreatedAt)
+            .ThenBy(q => q.Id).Take(pageSize + 1)
             .ToListAsync(cancellationToken);
 
         var result = new CursorResult<Question>();
