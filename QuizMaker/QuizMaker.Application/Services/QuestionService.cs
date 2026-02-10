@@ -55,7 +55,7 @@ public class QuestionService : IQuestionService {
 
         return new CursorResult<QuestionDetailDto>() {
             HasNextPage = questions.HasNextPage,
-            NextCursor = cursor,
+            NextCursor = questions.NextCursor,
             Items = items
         };
 
