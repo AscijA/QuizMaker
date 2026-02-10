@@ -1,10 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuizMaker.Application.Common.Results;
+using QuizMaker.Application.Contracts.DTOs.Question;
 using QuizMaker.Application.Interfaces.Services;
 
-
 namespace QuizMaker.Api.Controllers;
+
+/// <summary>
+/// Manages Question resources independently of Quizzes.
+/// </summary>
 [Route("api/[controller]")]
 [ApiController]
+[Produces("application/json")]
 public class QuestionsController : ControllerBase {
     private readonly IQuestionService _questionService;
     private readonly ILogger<QuestionsController> _logger;
@@ -14,30 +20,37 @@ public class QuestionsController : ControllerBase {
         _logger = logger;
     }
 
-    // GET: api/<QuestionesController>
+    /// <summary>
+    /// Retrieves a batch of questions by their IDs.
+    /// </summary>
+    /// <param name="ids">A list of GUIDs to retrieve.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>A list of question details.</returns>
+    /// <response code="200">Returns the matching questions.</response>
+    [HttpGet("batch")]
+    [ProducesResponseType(typeof(IEnumerable<QuestionDetailDto>), StatusCodes.Status200OK)]
+    public async Task<IEnumerable<QuestionDetailDto>> GetByIdsAsync(
+        [FromQuery] IEnumerable<Guid> ids,
+        CancellationToken cancellationToken) {
+        return await _questionService.GetByIDsAsync(ids, cancellationToken);
+    }
+
+    /// <summary>
+    /// Searches for questions containing specific text.
+    /// </summary>
+    /// <param name="searchText">The text to search for within question text or answers.</param>
+    /// <param name="cursor">The UTC cursor from the previous page.</param>
+    /// <param name="pageSize">Number of results per page (Default: 10).</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    /// <returns>A paginated list of matching questions.</returns>
+    /// <response code="200">Returns the search results.</response>
     [HttpGet]
-    public IEnumerable<string> Get() {
-        return new string[] { "value1", "value2" };
-    }
-
-    // GET api/<QuestionesController>/5
-    [HttpGet("{id}")]
-    public string Get(int id) {
-        return "value";
-    }
-
-    // POST api/<QuestionesController>
-    [HttpPost]
-    public void Post([FromBody] string value) {
-    }
-
-    // PUT api/<QuestionesController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value) {
-    }
-
-    // DELETE api/<QuestionesController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id) {
+    [ProducesResponseType(typeof(CursorResult<QuestionDetailDto>), StatusCodes.Status200OK)]
+    public async Task<CursorResult<QuestionDetailDto>> SearchAsync(
+        [FromQuery] string? searchText,
+        [FromQuery] string? cursor,
+        [FromQuery] int pageSize = 10,
+        CancellationToken cancellationToken = default) {
+        return await _questionService.SearchAsync(searchText, cursor, pageSize, cancellationToken);
     }
 }

@@ -92,13 +92,15 @@ public class QuizService : IQuizService {
 
     public async Task<QuizDetailDto> UpdateAsync(QuizUpdateDto quizUpdateDto, CancellationToken cancellationToken) {
 
-        if (quizUpdateDto.Id == Guid.Empty)
-            throw new ArgumentException("ID required");
+        if (quizUpdateDto.Id == Guid.Empty) {
+            throw new ArgumentException("Quiz ID is required for update.");
+        }
 
         var quiz = await _quizRepository.GetFullByIdAsync(quizUpdateDto.Id, cancellationToken, shouldTrack: true);
 
-        if (quiz == null)
+        if (quiz == null) {
             throw new NotFoundException($"Quiz {quizUpdateDto.Id} not found");
+        }
 
         quiz.UpdateName(quizUpdateDto.Name);
 
