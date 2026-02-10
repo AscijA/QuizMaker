@@ -12,7 +12,7 @@ public interface IQuestionRepository {
     /// Retrieves a cursor-based paginated list of <c>Question</c> entities
     /// </summary>
     /// <param name="searchText">Text to search for. Pass null for all questions.</param>
-    /// <param name="cursor">Id of the last item in the previous page. Pass <c>null</c> for the first page.</param>
+    /// <param name="cursor">CreatedAt UTC DateTime Cursor of the last item in the previous page. Pass <c>null</c> for the first page.</param>
     /// <param name="pageSize">Number of items to return</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task representing the asynchronous operation, containing a cursor result containing the <c>Question</c> entites and the next cursor.</returns>

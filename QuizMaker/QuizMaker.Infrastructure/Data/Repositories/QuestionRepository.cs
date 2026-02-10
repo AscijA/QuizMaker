@@ -20,17 +20,17 @@ public class QuestionRepository : IQuestionRepository {
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<CursorResult<Question>> SearchAsync(string? searchText, Guid? cursor, int pageSize, CancellationToken cancellationToken) {
+    public async Task<CursorResult<Question>> SearchAsync(string? searchText, DateTime? cursor, int pageSize, CancellationToken cancellationToken) {
         var query = _context.Questions.AsNoTracking();
 
         if (!string.IsNullOrWhiteSpace(searchText)) {
-            query = query.Where(q => EF.Functions.ILike(q.Text, $"%{searchText}") ||
-                EF.Functions.ILike(q.Answer, $"%{searchText}"));
+            query = query.Where(q => EF.Functions.ILike(q.Text, $"%{searchText}%") ||
+                EF.Functions.ILike(q.Answer, $"%{searchText}%"));
         }
         if (cursor.HasValue) {
-            query = query.Where(q => q.Id > cursor);
+            query = query.Where(a => a.CreatedAt < cursor.Value);
         }
-
+        
         var items = await query
             .OrderBy(q => q.Id)
             .Take(pageSize + 1)
@@ -46,7 +46,7 @@ public class QuestionRepository : IQuestionRepository {
         result.Items = items;
 
         if (items.Count > 0) {
-            result.NextCursor = items.Last().Id.ToString();
+            result.NextCursor = items.Last().CreatedAt.ToString("o");
         }
 
         return result;

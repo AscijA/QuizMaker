@@ -8,10 +8,11 @@ public class Question {
     public Guid Id { get; private set; }
     public string Text { get; set; } = null!;
     public string Answer { get; set; } = null!;
+    public DateTime CreatedAt { get; private set; }
+    private readonly List<QuizQuestion> _quizQuestions = new();
 
-    public ICollection<QuizQuestion> QuizQuestions { get; set; } = new List<QuizQuestion>();
-
-    public Question() { }
+    public IReadOnlyCollection<QuizQuestion> QuizQuestions => _quizQuestions.AsReadOnly();
+    private Question() { }
     public Question(string text, string answer) {
 
         if (string.IsNullOrWhiteSpace(text)) {
@@ -23,5 +24,6 @@ public class Question {
         Text = text;
         Answer = answer;
         Id = Guid.NewGuid();
+        CreatedAt = DateTime.Now;
     }
 }
