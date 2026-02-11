@@ -51,7 +51,7 @@ public class QuizzesController : ControllerBase {
     /// <returns>The detailed quiz information including questions.</returns>
     /// <response code="200">Returns the requested quiz.</response>
     /// <response code="404">If the quiz with the specified ID was not found.</response>
-    [HttpGet("{id}")]
+    [HttpGet("{id}", Name = "GetQuizById")]
     [ProducesResponseType(typeof(QuizDetailDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<QuizDetailDto>> GetByIdAsync(Guid id, CancellationToken cancellationToken) {
@@ -84,7 +84,7 @@ public class QuizzesController : ControllerBase {
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<QuizDetailDto>> AddAsync([FromBody] QuizCreateDto dto, CancellationToken cancellationToken) {
         var result = await _quizService.AddAsync(dto, cancellationToken);
-        return CreatedAtAction(nameof(GetByIdAsync), new { id = result.Id }, result);
+        return CreatedAtRoute("GetQuizById", new { id = result.Id }, result);
     }
 
     /// <summary>
