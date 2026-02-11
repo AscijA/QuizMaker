@@ -10,6 +10,12 @@ namespace QuizMaker.Infrastructure;
 
 public static class DependencyInjection {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config) {
+
+        services.AddOptions<DatabaseSettings>()
+            .Bind(config.GetSection("ConnectionStrings"))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
         services.AddDbContext<QuizDbContext>(options =>
             options.UseNpgsql(config.GetConnectionString("Default")));
 
