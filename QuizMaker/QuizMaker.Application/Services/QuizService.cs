@@ -32,6 +32,7 @@ public class QuizService : IQuizService {
         var quiz = new Quiz(quizCreateDto.Name);
 
         await BindQuestionsToQuizAsync(quiz, quizCreateDto.Questions, cancellationToken);
+        await _quizRepository.AddAsync(quiz, cancellationToken);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return quiz.ToDetailDto()!;
