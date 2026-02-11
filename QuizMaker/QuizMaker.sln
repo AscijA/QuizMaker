@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36915.13 d17.14
+VisualStudioVersion = 17.14.36915.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.Api", "QuizMaker.Api\QuizMaker.Api.csproj", "{FC91617A-80AD-4263-A493-DC1AC6D29BB3}"
 EndProject
@@ -18,6 +18,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.UnitTests", "QuizMaker.UnitTests\QuizMaker.UnitTests.csproj", "{8E054209-FA17-427B-9BA0-9BCF8319497F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.IntegrationTests", "QuizMaker.IntegrationTests\QuizMaker.IntegrationTests.csproj", "{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exporters", "Exporters", "{29811E1B-D7A2-474E-9E64-C1D789DC6E2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizMaker.Exporters.Pdf", "QuizMaker.Exporters.Pdf\QuizMaker.Exporters.Pdf.csproj", "{D5BD4530-F149-47C4-93CB-B62D0C90D1A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,10 @@ Global
 		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5BD4530-F149-47C4-93CB-B62D0C90D1A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5BD4530-F149-47C4-93CB-B62D0C90D1A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5BD4530-F149-47C4-93CB-B62D0C90D1A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5BD4530-F149-47C4-93CB-B62D0C90D1A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +68,7 @@ Global
 		{854258D5-AC85-4E7B-800E-98D45A925A0A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{8E054209-FA17-427B-9BA0-9BCF8319497F} = {736DE831-76D4-4EB4-B602-99F134EEA565}
 		{1DDA1842-4DBF-4AE3-8909-5F8A16DFB682} = {736DE831-76D4-4EB4-B602-99F134EEA565}
+		{D5BD4530-F149-47C4-93CB-B62D0C90D1A7} = {29811E1B-D7A2-474E-9E64-C1D789DC6E2C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C3371470-7344-43E5-9054-2432F1A81C2F}
