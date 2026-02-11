@@ -24,6 +24,6 @@ public class Question {
         Text = text;
         Answer = answer;
         Id = Guid.NewGuid();
-        CreatedAt = DateTime.Now;
+        CreatedAt = DateTime.UtcNow;
     }
 }

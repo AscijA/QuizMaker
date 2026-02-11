@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\QuizMaker.Application\QuizMaker.Application.csproj" />
     <ProjectReference Include="..\QuizMaker.Domain\QuizMaker.Domain.csproj" />
+    <ProjectReference Include="..\QuizMaker.Infrastructure\QuizMaker.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
