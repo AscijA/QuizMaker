@@ -29,9 +29,9 @@ public class QuizDbContext : IdentityDbContext {
             .HasForeignKey(qq => qq.QuestionId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // dont query IsDeleted == false
-        //modelBuilder.Entity<Quiz>()
-        //    .HasQueryFilter(q => !q.IsDeleted);
+        //dont query IsDeleted == false
+        modelBuilder.Entity<Quiz>()
+            .HasQueryFilter(q => !q.IsDeleted);
 
         //restrictiosn
         modelBuilder.Entity<Quiz>()
@@ -50,9 +50,9 @@ public class QuizDbContext : IdentityDbContext {
             .IsRequired()
             .HasMaxLength(500);
 
-        //// indexes
-        //modelBuilder.Entity<Question>()
-        //    .HasIndex(q => q.Text);
+        // indexes
+        modelBuilder.Entity<Question>()
+            .HasIndex(q => q.Text);
 
 
         //modelBuilder.Entity<Question>()

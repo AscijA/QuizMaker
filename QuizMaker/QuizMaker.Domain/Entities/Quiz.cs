@@ -10,6 +10,7 @@ public class Quiz {
     private readonly List<QuizQuestion> _quizQuestions = new();
     public virtual IReadOnlyCollection<QuizQuestion> QuizQuestions => _quizQuestions.AsReadOnly();
 
+    public bool IsDeleted { get; private set; }
     private Quiz() { }
 
     public Quiz(string name) {
@@ -27,10 +28,14 @@ public class Quiz {
         Name = name;
     }
 
+    public void Delete() {
+        IsDeleted = true;
+    }
+
 
     public void AddQuestion(Question question, int orderIndex) {
         if (_quizQuestions.Any(qq => qq.QuestionId == question.Id)) {
-            return; 
+            return;
         }
         var link = new QuizQuestion(this, question, orderIndex);
         _quizQuestions.Add(link);

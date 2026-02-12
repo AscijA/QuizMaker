@@ -115,12 +115,12 @@ public class QuizzesController : ControllerBase {
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>The updated quiz details.</returns>
     /// <response code="400">If the input data is invalid (e.g., missing name).</response>
-    [HttpPatch]
-    [ProducesResponseType(typeof(QuizDetailDto), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<QuizDetailDto> UpdatePartial([FromBody] QuizUpdateDto dto, CancellationToken cancellationToken) {
-        return await _quizService.UpdatePartialAsync(dto, cancellationToken);
-    }
+    //[HttpPatch]
+    //[ProducesResponseType(typeof(QuizDetailDto), StatusCodes.Status200OK)]
+    //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+    //public async Task<QuizDetailDto> UpdatePartial([FromBody] QuizUpdateDto dto, CancellationToken cancellationToken) {
+    //    return await _quizService.UpdatePartialAsync(dto, cancellationToken);
+    //}
 
     /// <summary>
     /// Deletes a quiz by its ID.

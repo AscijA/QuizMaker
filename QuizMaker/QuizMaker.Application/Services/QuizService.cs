@@ -104,8 +104,8 @@ public class QuizService : IQuizService {
         }
 
         quiz.UpdateName(quizUpdateDto.Name);
-
-        quiz.ClearQuestions();
+         
+        //quiz.ClearQuestions();
 
         await BindQuestionsToQuizAsync(quiz, quizUpdateDto.Questions, cancellationToken);
 

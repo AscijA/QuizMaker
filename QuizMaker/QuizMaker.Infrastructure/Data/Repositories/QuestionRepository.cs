@@ -15,7 +15,6 @@ public class QuestionRepository : IQuestionRepository {
     public async Task<IEnumerable<Question>> GetByIdsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken) {
 
         return await _context.Questions
-            .AsNoTracking()
             .Where(q => ids.Contains(q.Id))
             .ToListAsync(cancellationToken);
     }
@@ -24,11 +23,12 @@ public class QuestionRepository : IQuestionRepository {
         var query = _context.Questions.AsNoTracking();
 
         if (!string.IsNullOrWhiteSpace(searchText)) {
-            query = query.Where(q => EF.Functions.ILike(q.Text, $"%{searchText}%") ||
-                EF.Functions.ILike(q.Answer, $"%{searchText}%"));
+            query = query.Where(q => EF.Functions.ILike(q.Text, $"%{searchText}%")
+            //|| EF.Functions.ILike(q.Answer, $"%{searchText}%")
+            );
         }
         if (cursor.HasValue) {
-            query = query.Where(a => a.CreatedAt < cursor.Value);
+            query = query.Where(a => a.CreatedAt < cursor.Value.ToUniversalTime());
         }
 
         var items = await query

@@ -102,7 +102,7 @@ namespace QuizMaker.Api {
 
                 var app = builder.Build();
 
-                app.ApplyMigrations();
+                //app.ApplyMigrations();
                 app.UseExceptionHandler();
 
                 if (!app.Environment.IsDevelopment()) {

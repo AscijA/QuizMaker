@@ -18,7 +18,7 @@ public class QuizRepository : IQuizRepository {
     }
 
     public void Delete(Quiz quiz) {
-        _context.Quizzes.Remove(quiz);
+        quiz.Delete();
     }
 
     public async Task<CursorResult<Quiz>> GetAllAsync(DateTime? cursor, int pageSize, CancellationToken cancellationToken) {
@@ -28,7 +28,7 @@ public class QuizRepository : IQuizRepository {
 
 
         if (cursor.HasValue) {
-            query = query.Where(a => a.CreatedAt < cursor.Value);
+            query = query.Where(a => a.CreatedAt < cursor.Value.ToUniversalTime());
         }
 
         var items = await query
@@ -41,7 +41,7 @@ public class QuizRepository : IQuizRepository {
 
         if (items.Count > pageSize) {
             result.HasNextPage = true;
-            items.RemoveAt(items.Count - 1); 
+            items.RemoveAt(items.Count - 1);
         }
 
         result.Items = items;
