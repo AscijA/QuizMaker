@@ -24,5 +24,14 @@ public interface IQuestionService {
     /// <param name="ids">A collection of <c>Question</c> entity IDs to retrieve.</param>
     /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
     /// <returns>A task representing the asynchronous operation, containing the collection of matching <c>QuestionDetailDto</c> entities.</returns>
-    Task<IEnumerable<QuestionDetailDto>> GetByIDsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken );
+    Task<IEnumerable<QuestionDetailDto>> GetByIDsAsync(IEnumerable<Guid> ids, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Retrieves a paginated list of question details using cursor-based pagination.
+    /// </summary>
+    /// <param name="cursor">Text string-cursor of the last item in the previous page. Pass <c>null</c> for the first page.</param>
+    /// <param name="pageSize">The maximum number of items to return.</param>
+    /// <param name="cancellationToken">Token to cancel the asynchronous operation.</param>
+    /// <returns>A task that represents the asynchronous operation, containing a cursor result with question detail DTOs.</returns>
+    Task<CursorResult<QuestionDetailDto>> GetAllAsync(string? cursor, int pageSize, CancellationToken cancellationToken);
 }
