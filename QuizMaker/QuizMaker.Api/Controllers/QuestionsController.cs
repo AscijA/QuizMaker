@@ -12,7 +12,8 @@ namespace QuizMaker.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [Produces("application/json")]
-[Authorize(Roles = "Admin")]
+[Authorize]
+//[Authorize(Roles = "Admin")]
 public class QuestionsController : ControllerBase {
     private readonly IQuestionService _questionService;
     private readonly ILogger<QuestionsController> _logger;

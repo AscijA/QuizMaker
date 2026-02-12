@@ -7,7 +7,8 @@ namespace QuizMaker.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize(Roles = "Admin")]
+[Authorize]
+//[Authorize(Roles = "Admin")]
 public class ExportsController : ControllerBase {
     private readonly IExporterService _exporterService;
 

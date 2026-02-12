@@ -32,29 +32,51 @@ namespace QuizMaker.Api {
                     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                     c.IncludeXmlComments(xmlPath);
 
-                    c.AddSecurityDefinition(
-                        "Bearer",
-                        new OpenApiSecurityScheme {
-                            Name = "Authorization",
-                            Type = SecuritySchemeType.Http,
-                            Scheme = "Bearer",
-                            BearerFormat = "JWT",
-                            In = ParameterLocation.Header,
-                            Description = "Enter your valid token in the text input below.\n\nExample: `eyJhbGciOi...`"
-                        });
+                    c.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme {
+                        Description = "Enter your API Key in the text input below.",
+                        Type = SecuritySchemeType.ApiKey,
+                        Name = "X-Api-Key",
+                        In = ParameterLocation.Header,
+                        Scheme = "ApiKey"
+                    });
 
                     c.AddSecurityRequirement(
-                        new OpenApiSecurityRequirement {
-                           {
-                               new OpenApiSecurityScheme {
-                                   Reference = new OpenApiReference {
-                                       Type = ReferenceType.SecurityScheme,
-                                       Id = "Bearer"
-                                   }
-                               },
-                               Array.Empty<string>()
-                           }
-    });
+                        new OpenApiSecurityRequirement{
+                                {new OpenApiSecurityScheme
+                                    {
+                                        Reference = new OpenApiReference
+                                        {
+                                            Type = ReferenceType.SecurityScheme,
+                                            Id = "ApiKey"
+                                        },
+                                        In = ParameterLocation.Header
+                                    },
+                                    new List<string>()
+                            }
+                            });
+                    //                c.AddSecurityDefinition(
+                    //                    "Bearer",
+                    //                    new OpenApiSecurityScheme {
+                    //                        Name = "Authorization",
+                    //                        Type = SecuritySchemeType.Http,
+                    //                        Scheme = "Bearer",
+                    //                        BearerFormat = "JWT",
+                    //                        In = ParameterLocation.Header,
+                    //                        Description = "Enter your valid token in the text input below.\n\nExample: `eyJhbGciOi...`"
+                    //                    });
+
+                    //                c.AddSecurityRequirement(
+                    //                    new OpenApiSecurityRequirement {
+                    //                       {
+                    //                           new OpenApiSecurityScheme {
+                    //                               Reference = new OpenApiReference {
+                    //                                   Type = ReferenceType.SecurityScheme,
+                    //                                   Id = "Bearer"
+                    //                               }
+                    //                           },
+                    //                           Array.Empty<string>()
+                    //                       }
+                    //});
                 });
 
                 builder.Services.AddHealthChecks()
@@ -100,8 +122,6 @@ namespace QuizMaker.Api {
                     app.UseSwaggerUI(options => options.EnableTryItOutByDefault());
                 }
                 app.MapHealthChecks("/health");
-
-                app.UseHttpsRedirection();
 
                 app.UseAuthentication();
                 app.UseAuthorization();
