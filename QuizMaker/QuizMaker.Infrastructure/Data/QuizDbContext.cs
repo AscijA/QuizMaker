@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using QuizMaker.Domain.Entities;
 
 namespace QuizMaker.Infrastructure.Data;
-public class QuizDbContext : DbContext {
+public class QuizDbContext : IdentityDbContext {
 
     public DbSet<Quiz> Quizzes { get; set; }
     public DbSet<Question> Questions { get; set; }

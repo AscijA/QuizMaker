@@ -57,6 +57,27 @@ public class QuestionService : IQuestionService {
             NextCursor = questions.NextCursor,
             Items = items
         };
+    }
 
+    public async Task<CursorResult<QuestionDetailDto>> GetAllAsync(string? cursor, int pageSize, CancellationToken cancellationToken) {
+
+        DateTime? cursorDT = DateTime.TryParse(cursor, out var dt) ? dt : (DateTime?)null;
+
+        var questions = await _questionRepository.SearchAsync(null, cursorDT, pageSize, cancellationToken);
+
+        if (!questions.Items.Any()) {
+            _logger.LogWarning("No Questions found");
+            return new CursorResult<QuestionDetailDto>() { Items = [] };
+        }
+
+        var items = questions.Items
+            .Select(q => q.ToDetailDto()!)
+            .ToList();
+
+        return new CursorResult<QuestionDetailDto>() {
+            HasNextPage = questions.HasNextPage,
+            NextCursor = questions.NextCursor,
+            Items = items
+        };
     }
 }
