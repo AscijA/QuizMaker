@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace QuizMaker.Infrastructure;
+namespace QuizMaker.Infrastructure.Settings;
 
 public class DatabaseSettings {
 

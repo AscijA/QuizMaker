@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using QuizMaker.Application.Common.Results;
 using QuizMaker.Application.Contracts.DTOs.Quiz;
 using QuizMaker.Application.Interfaces.Services;
@@ -11,13 +12,12 @@ namespace QuizMaker.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [Produces("application/json")]
+[Authorize(Roles = "Admin")]
 public class QuizzesController : ControllerBase {
     private readonly IQuizService _quizService;
-    private readonly ILogger<QuizzesController> _logger;
 
-    public QuizzesController(IQuizService quizService, ILogger<QuizzesController> logger) {
+    public QuizzesController(IQuizService quizService) {
         _quizService = quizService;
-        _logger = logger;
     }
 
     /// <summary>
