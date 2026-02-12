@@ -13,9 +13,11 @@ public static class MigrationDBExtensions {
         try {
             logger.LogInformation("Attempting to apply database migrations...");
 
-            if (dbContext.Database.GetPendingMigrations().Any()) {
-                dbContext.Database.Migrate();
-                logger.LogInformation("Database migrations applied successfully.");
+            if (dbContext.Database.IsRelational()) {
+                if (dbContext.Database.GetPendingMigrations().Any()) {
+                    dbContext.Database.Migrate();
+                    logger.LogInformation("Database migrations applied successfully.");
+                }
             }
             else {
                 if (!dbContext.Database.CanConnect()) {
@@ -26,7 +28,7 @@ public static class MigrationDBExtensions {
         }
         catch (Exception ex) {
             logger.LogCritical(ex, "FATAL: Database migration failed. Application will stop.");
-            throw; 
+            throw;
         }
     }
 }

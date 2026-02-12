@@ -11,10 +11,15 @@ using Serilog.Events;
 namespace QuizMaker.Api {
     public class Program {
         public static void Main(string[] args) {
-            Log.Logger = new LoggerConfiguration()
-                .WriteTo.Console()
-                .CreateBootstrapLogger();
+            try {
+                Log.Logger = new LoggerConfiguration()
+                      .WriteTo.Console()
+                      .CreateBootstrapLogger();
 
+            }
+            catch (Exception) {
+                
+            }
             try {
                 var builder = WebApplication.CreateBuilder(args);
 
